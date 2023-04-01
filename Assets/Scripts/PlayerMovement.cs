@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float _moveSpeed = 2f;
     public CharController controller;
-    //public Animator animator;
+    public Animator animator;
 
     float horizontalMove = 0f;
     float verticalMove = 0f;
@@ -28,33 +28,47 @@ public class PlayerMovement : MonoBehaviour
 
         horizontalMove = Input.GetAxisRaw("Horizontal") * _moveSpeed;
         verticalMove = Input.GetAxisRaw("Vertical") * _moveSpeed;
-        /*
-        animator.SetFloat("Speed", Mathf.Abs(horizontalMove * Time.timeScale));
-                */
+
+        if ((verticalMove != 0 || horizontalMove != 0) && !IsJumping)
+        {
+            animator.SetBool("Walking", true);
+        } else { animator.SetBool("Walking", false); }
+                
 
         if (Input.GetButtonDown("Jump") && Time.timeScale > 0)
         {
+
             jump = true;
-            //animator.SetBool("IsJumping", true);
             IsJumping = true;
         }
-
-      /*  if (horizontalMove != 0 && !IsJumping)
+        if (Input.GetButtonDown("Jump") && !IsJumping)
         {
-            _footstepCooldown += Time.deltaTime;
+            animator.SetTrigger("Jumps");
 
-            if (_footstepCooldown >= 0.5f || !footsteps.isPlaying)
-            {
-                int rng = Random.Range(0, _clips.Length - 1);
-                footsteps.PlayOneShot(_clips[rng]);
-                _footstepCooldown = 0;
-            }
         }
-        else
+
+        /*  if (horizontalMove != 0 && !IsJumping)
+          {
+              _footstepCooldown += Time.deltaTime;
+
+              if (_footstepCooldown >= 0.5f || !footsteps.isPlaying)
+              {
+                  int rng = Random.Range(0, _clips.Length - 1);
+                  footsteps.PlayOneShot(_clips[rng]);
+                  _footstepCooldown = 0;
+              }
+          }
+          else
+          {
+              _footstepCooldown = 0;
+              footsteps.Stop();
+          }*/
+
+        if (IsJumping)
         {
-            _footstepCooldown = 0;
-            footsteps.Stop();
-        }*/
+            animator.SetBool("IsGrounded", false);
+        } else { animator.SetBool("IsGrounded", true); }
+        
     }
 
     void FixedUpdate()
@@ -66,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnLanding()
     {
-        //animator.SetBool("IsJumping", false);
+
         IsJumping = false;
     }
 }
