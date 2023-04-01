@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 trackSelection = true
 fetchPreview = true
 wantsMore = false
@@ -65,3 +66,6 @@ queryBuilder = false
 ignoredProperties = "id;name;classname;imagecontentshash"
 helperWidgetCurrentArea = "all"
 disabledIndexers = ""
+=======
+{}
+>>>>>>> Stashed changes
