@@ -23,6 +23,7 @@ public class CharController : MonoBehaviour
     private bool m_FacingRight = true;
     private Vector3 m_Velocity = Vector3.zero;
 
+    
     enum GravityDirection { Down, Left, Up, Right };
     GravityDirection m_GravityDirection;
 
@@ -30,6 +31,7 @@ public class CharController : MonoBehaviour
     [Space]
 
     public UnityEvent OnLandEvent;
+    public UnityEvent OnWallEvent;
 
     private void Awake()
     {
@@ -42,6 +44,8 @@ public class CharController : MonoBehaviour
 
         if (OnLandEvent == null)
             OnLandEvent = new UnityEvent();
+        if (OnWallEvent == null)
+            OnWallEvent = new UnityEvent();
 
     }
 
@@ -77,6 +81,7 @@ public class CharController : MonoBehaviour
             {
                 m_Walled = true;
                 m_Rigidbody.gravityScale = 0.0f;
+                OnWallEvent.Invoke();
             }
         }
 
@@ -201,4 +206,13 @@ public class CharController : MonoBehaviour
         currentGround = groundType;
     }
 
+    public bool IsGrounded()
+    {
+        return m_Grounded;
+    }
+
+    public bool IsWalled()
+    {
+        return m_Walled;
+    }
 }

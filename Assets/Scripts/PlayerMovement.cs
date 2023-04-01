@@ -37,15 +37,19 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && Time.timeScale > 0)
         {
-
+            animator.SetTrigger("Jumps");
             jump = true;
             IsJumping = true;
         }
-        if (Input.GetButtonDown("Jump") && !IsJumping)
-        {
-            animator.SetTrigger("Jumps");
+        
 
+
+        if (controller.IsGrounded() || controller.IsWalled())
+        {
+            animator.SetBool("IsGrounded", true);
         }
+        else { animator.SetBool("IsGrounded", false); }
+
 
         /*  if (horizontalMove != 0 && !IsJumping)
           {
@@ -64,10 +68,10 @@ public class PlayerMovement : MonoBehaviour
               footsteps.Stop();
           }*/
 
-        if (IsJumping)
+      /*  if (IsJumping)
         {
             animator.SetBool("IsGrounded", false);
-        } else { animator.SetBool("IsGrounded", true); }
+        } else { animator.SetBool("IsGrounded", true); }*/
         
     }
 
