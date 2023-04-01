@@ -29,6 +29,7 @@ public class DetectWall : MonoBehaviour
 
     void makeCorner()
     {
-        Debug.Log("DETWECT");
+        transform.position = transform.position + new Vector3(0, 1, 0);
+        transform.Rotate(0.0f, 0.0f, 90.0f, Space.World);
     }
 }
