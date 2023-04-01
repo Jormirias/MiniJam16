@@ -14,6 +14,7 @@ public class CharController : MonoBehaviour
     [SerializeField] private LayerMask m_WhatIsWall;
     // [SerializeField] private Transform m_CeilingCheck;
 
+    private string currentGround = "ground";
     private float oGravity;
     private float k_GroundedRadius = .3f;
     private bool m_Grounded;
@@ -153,18 +154,29 @@ public class CharController : MonoBehaviour
             }
 
         }
+    }
 
-         if (m_Walled)
+    public void VerticalMove(float move)
+    {
+        if (m_Walled)
         {
 
-
             Vector3 targetVelocity = new Vector3(0, move * 10f, 0);
-            Debug.Log(move);
             m_Rigidbody.velocity = Vector3.SmoothDamp(m_Rigidbody.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
+        }
+
+        if (move > 0 && !m_FacingRight && currentGround == "left")
+        {
+            Flip();
+        }
+
+        else if (move < 0 && m_FacingRight && currentGround == "right")
+        {
+            Flip();
         }
     }
 
-    private void Flip()
+        private void Flip()
     {
         m_FacingRight = !m_FacingRight;
         Vector3 theScale = transform.localScale;
@@ -177,5 +189,15 @@ public class CharController : MonoBehaviour
         return m_FacingRight;
     }
 
+    public string CheckGroundSide()
+    {
+        return currentGround;
+    }
+
+    public void ChangeGroundSide(string groundType)
+    {
+        currentGround = "right";
+        currentGround = "left";
+    }
 
 }

@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     //public Animator animator;
 
     float horizontalMove = 0f;
+    float verticalMove = 0f;
     bool jump = false;
     bool IsJumping = false;
 
@@ -26,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     {
 
         horizontalMove = Input.GetAxisRaw("Horizontal") * _moveSpeed;
+        verticalMove = Input.GetAxisRaw("Vertical") * _moveSpeed;
         /*
         animator.SetFloat("Speed", Mathf.Abs(horizontalMove * Time.timeScale));
                 */
@@ -58,6 +60,7 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         controller.Move(horizontalMove * Time.fixedDeltaTime, jump);
+        controller.VerticalMove(verticalMove * Time.fixedDeltaTime);
         jump = false;
     }
 
