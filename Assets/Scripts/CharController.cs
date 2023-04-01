@@ -165,12 +165,13 @@ public class CharController : MonoBehaviour
             m_Rigidbody.velocity = Vector3.SmoothDamp(m_Rigidbody.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
         }
 
-        if (move > 0 && !m_FacingRight && currentGround == "left")
+        if (currentGround == "left" && ((move < 0 && !m_FacingRight) || (move > 0 && m_FacingRight)))
         {
+            Debug.Log(currentGround);
             Flip();
         }
 
-        else if (move < 0 && m_FacingRight && currentGround == "right")
+        else if (currentGround == "right" && ((move < 0 && m_FacingRight) || (move > 0 && !m_FacingRight)))
         {
             Flip();
         }
@@ -196,8 +197,7 @@ public class CharController : MonoBehaviour
 
     public void ChangeGroundSide(string groundType)
     {
-        currentGround = "right";
-        currentGround = "left";
+        currentGround = groundType;
     }
 
 }
