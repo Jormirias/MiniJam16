@@ -11,10 +11,13 @@ public class CharController : MonoBehaviour
     [SerializeField] private bool m_AirControl = false;
     [SerializeField] private LayerMask m_WhatIsGround;
     [SerializeField] private Transform m_GroundCheck;
-   // [SerializeField] private Transform m_CeilingCheck;
+    [SerializeField] private LayerMask m_WhatIsWall;
+    // [SerializeField] private Transform m_CeilingCheck;
 
-    private float k_GroundedRadius = 1.01f;
+    private float oGravity;
+    private float k_GroundedRadius = .3f;
     private bool m_Grounded;
+    private bool m_Walled;
     private Rigidbody2D m_Rigidbody;
     private bool m_FacingRight = true;
     private Vector3 m_Velocity = Vector3.zero;
@@ -31,6 +34,7 @@ public class CharController : MonoBehaviour
     {
         m_Rigidbody = GetComponent<Rigidbody2D>();
         m_GravityDirection = GravityDirection.Down;
+        oGravity = m_Rigidbody.gravityScale;
 
         //gameObject.GetComponent<Transform>().position = new Vector3(0, 0, 0);
         //use scene parameters?
@@ -44,6 +48,9 @@ public class CharController : MonoBehaviour
     {     
         bool wasGrounded = m_Grounded;
         m_Grounded = false;
+
+        m_Walled = false;
+        m_Rigidbody.gravityScale = oGravity;
 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
 
@@ -60,7 +67,17 @@ public class CharController : MonoBehaviour
                   }
               }
 
+        Collider2D[] colliders_wall = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsWall);
 
+        for (int i = 0; i < colliders_wall.Length; i++)
+        {
+
+            if (colliders_wall[i].gameObject != gameObject)
+            {
+                m_Walled = true;
+                m_Rigidbody.gravityScale = 0.0f;
+            }
+        }
 
         switch (m_GravityDirection)
         {
@@ -137,6 +154,14 @@ public class CharController : MonoBehaviour
 
         }
 
+         if (m_Walled)
+        {
+
+
+            Vector3 targetVelocity = new Vector3(0, move * 10f, 0);
+            Debug.Log(move);
+            m_Rigidbody.velocity = Vector3.SmoothDamp(m_Rigidbody.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
+        }
     }
 
     private void Flip()
