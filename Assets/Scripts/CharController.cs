@@ -131,6 +131,7 @@ public class CharController : MonoBehaviour
 
     public void Move(float move, bool jump)
     {
+        Debug.Log(jump);
         if (m_Grounded || m_AirControl)
         {            
             Vector3 targetVelocity = new Vector3(move * 10f, m_Rigidbody.velocity.y, 0);
