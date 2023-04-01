@@ -147,5 +147,10 @@ public class CharController : MonoBehaviour
         transform.localScale = theScale;
     }
 
+    public bool CheckFlipSide()
+    {
+        return m_FacingRight;
+    }
+
 
 }

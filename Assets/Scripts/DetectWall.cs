@@ -6,6 +6,7 @@ public class DetectWall : MonoBehaviour
 {
     [SerializeField] private LayerMask m_WhatIsWall;
     [SerializeField] private Transform m_CornerCheck;
+    [SerializeField] private CharController CharControl; 
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +31,12 @@ public class DetectWall : MonoBehaviour
     void makeCorner()
     {
         transform.position = transform.position + new Vector3(0, 1, 0);
-        transform.Rotate(0.0f, 0.0f, 90.0f, Space.World);
+        bool flipDirection = CharControl.CheckFlipSide();
+        int flipMultiplier = 1;
+
+        if (!flipDirection)
+            { flipMultiplier *= -1; }
+
+        transform.Rotate(0.0f, 0.0f, 90.0f * flipMultiplier, Space.World);
     }
 }
