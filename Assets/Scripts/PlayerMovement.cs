@@ -13,10 +13,10 @@ public class PlayerMovement : MonoBehaviour
     bool jump = false;
     bool IsJumping = false;
 
-   // public AudioClip[] _clips;
-   // private float _footstepCooldown = 0;
+    // public AudioClip[] _clips;
+    // private float _footstepCooldown = 0;
 
-  //  private AudioSource footsteps;
+    //  private AudioSource footsteps;
 
     private void Awake()
     {
@@ -29,11 +29,13 @@ public class PlayerMovement : MonoBehaviour
         horizontalMove = Input.GetAxisRaw("Horizontal") * _moveSpeed;
         verticalMove = Input.GetAxisRaw("Vertical") * _moveSpeed;
 
+
         if ((verticalMove != 0 || horizontalMove != 0) && !IsJumping)
         {
             animator.SetBool("Walking", true);
-        } else { animator.SetBool("Walking", false); }
-                
+        }
+        else { animator.SetBool("Walking", false); }
+
 
         if (Input.GetButtonDown("Jump") && Time.timeScale > 0)
         {
@@ -41,14 +43,24 @@ public class PlayerMovement : MonoBehaviour
             jump = true;
             IsJumping = true;
         }
-        
+
 
 
         if (controller.IsGrounded() || controller.IsWalled())
         {
             animator.SetBool("IsGrounded", true);
+            if (Input.GetButtonDown("Fire1"))
+            {
+                animator.SetTrigger("Attacks");
+            }
         }
-        else { animator.SetBool("IsGrounded", false); }
+        else { animator.SetBool("IsGrounded", false);
+            if (Input.GetButtonDown("Fire1"))
+            {
+                animator.SetTrigger("Attacks");
+            }
+        }
+
 
 
         /*  if (horizontalMove != 0 && !IsJumping)
@@ -68,11 +80,11 @@ public class PlayerMovement : MonoBehaviour
               footsteps.Stop();
           }*/
 
-      /*  if (IsJumping)
-        {
-            animator.SetBool("IsGrounded", false);
-        } else { animator.SetBool("IsGrounded", true); }*/
-        
+        /*  if (IsJumping)
+          {
+              animator.SetBool("IsGrounded", false);
+          } else { animator.SetBool("IsGrounded", true); }*/
+
     }
 
     void FixedUpdate()
@@ -80,6 +92,8 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(horizontalMove * Time.fixedDeltaTime, jump);
         controller.VerticalMove(verticalMove * Time.fixedDeltaTime);
         jump = false;
+
+
     }
 
     public void OnLanding()
