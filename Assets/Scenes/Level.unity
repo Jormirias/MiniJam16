@@ -5403,7 +5403,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1787419513}
-  - component: {fileID: 1787419511}
+  - component: {fileID: 1787419518}
   - component: {fileID: 1787419510}
   - component: {fileID: 1787419514}
   - component: {fileID: 1787419515}
@@ -5436,32 +5436,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &1787419511
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1787419509}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.17481226, y: -0.12423131}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 0.9166667}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.6840483, y: 0.67810124}
-  m_EdgeRadius: 0
 --- !u!4 &1787419513
 Transform:
   m_ObjectHideFlags: 0
@@ -5536,6 +5510,22 @@ MonoBehaviour:
     m_Bits: 128
   m_CornerCheck: {fileID: 59405674}
   CharControl: {fileID: 1787419514}
+--- !u!70 &1787419518
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787419509}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.1748123, y: -0.1242313}
+  m_Size: {x: 1.684048, y: 0.6781012}
+  m_Direction: 1
 --- !u!1 &2131971037
 GameObject:
   m_ObjectHideFlags: 0
