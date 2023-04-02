@@ -7,7 +7,7 @@ public class HazardGen : MonoBehaviour
     public GameObject hazardAnt;
 
     private float timer = 0;
-    private float timerLimit = 3;
+    [SerializeField] private float timerLimit = 3;
     private float timerDelta = 0.001f;
     private bool enableStart = false;
 

@@ -51,7 +51,6 @@ public class CharController : MonoBehaviour
 
     private void FixedUpdate()
     {
-
         if (!m_Grounded && !m_Walled)
         {
             m_Rigidbody.transform.rotation = Quaternion.Euler(0,0,0);
@@ -71,13 +70,15 @@ public class CharController : MonoBehaviour
 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
 
-         for (int i = 0; i < colliders.Length; i++)
+        Debug.Log(currentGround);
+
+        for (int i = 0; i < colliders.Length; i++)
               {
 
                   if (colliders[i].gameObject != gameObject)
                   {
                       m_Grounded = true;
-                      if (!wasGrounded && m_Rigidbody.velocity.y < -0.001f)
+                      if (currentGround!="ceiling" && !wasGrounded && m_Rigidbody.velocity.y < -0.001f)
                       {
                           OnLandEvent.Invoke();
                         currentGround = "ground";
@@ -86,7 +87,8 @@ public class CharController : MonoBehaviour
                       if(currentGround == "ceiling") {
                           m_Rigidbody.gravityScale = 0.0f;
                           m_Rigidbody.constraints = RigidbodyConstraints2D.FreezePositionY;
-                      }
+                    m_Rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+                }
                      
                   }
 
@@ -99,8 +101,6 @@ public class CharController : MonoBehaviour
 
         Collider2D[] colliders_wall = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsWall);
 
-        Debug.Log(colliders_wall.Length);
-
         for (int i = 0; i < colliders_wall.Length; i++)
         {
             
@@ -112,7 +112,7 @@ public class CharController : MonoBehaviour
             }
         }
 
-        switch (m_GravityDirection)
+        /*switch (m_GravityDirection)
         {
             case GravityDirection.Down:
                 //Change the gravity to be in a downward direction (default)
@@ -158,7 +158,7 @@ public class CharController : MonoBehaviour
                 }
 
                 break;
-        }
+        }*/
     }
 
     public void Move(float move, bool jump)
@@ -193,16 +193,19 @@ public class CharController : MonoBehaviour
             {
                 m_Grounded = false;
 
-                currentGround = "ground";
-
                 m_Rigidbody.gravityScale = oGravity;
                 m_Rigidbody.constraints = RigidbodyConstraints2D.None;
                 m_Rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
 
                 if (currentGround == "ceiling")
-                { m_Rigidbody.AddForce(new Vector2(0f, -m_JumpForce)); }
+
+                {m_Rigidbody.AddForce(new Vector2(0f, -m_JumpForce));
+                    currentGround = "ground";
+                }
                 else
-                { m_Rigidbody.AddForce(new Vector2(0f, m_JumpForce));}
+                { m_Rigidbody.AddForce(new Vector2(0f, m_JumpForce));
+                    currentGround = "ground";
+                }
             }
 
         }
