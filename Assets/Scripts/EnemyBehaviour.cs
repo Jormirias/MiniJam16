@@ -22,6 +22,11 @@ public class EnemyBehaviour : MonoBehaviour
     void Update()
     {
         Fire();
+        if (target.position.x < stinger.position.x)
+        {
+            GetComponent<SpriteRenderer>().flipX = true;
+        }
+        else { GetComponent<SpriteRenderer>().flipX = false; }
     }
 
     private void Fire()

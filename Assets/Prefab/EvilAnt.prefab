@@ -111,7 +111,7 @@ SpriteRenderer:
   m_SortingOrder: 1
   m_Sprite: {fileID: -96373013, guid: 910fdf312cf1ce547820ec861849fa4f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 2, y: 2}
@@ -168,7 +168,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbbc90956ccf80440bea00790785abc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 8126839921441750498, guid: fbc722e42c46124448e2c1aa5c59a6e6, type: 3}
   stinger: {fileID: 5987519879897792943}
   bullet: {fileID: 5589947281571591785, guid: ebb535a1d5e96f949b217a065ca4431b, type: 3}
   fireRate: 8000
