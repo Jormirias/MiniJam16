@@ -13,10 +13,19 @@ public class PlayerMovement : MonoBehaviour
     bool jump = false;
     bool IsJumping = false;
 
-   // public AudioClip[] _clips;
-   // private float _footstepCooldown = 0;
+    [SerializeField]
+    private Transform attackPoint;
+    [SerializeField]
+    private float attackRange = 0.005f;
+    [SerializeField]
+    private LayerMask enemyLayers;
+    [SerializeField]
+    private float attackDelay;
 
-  //  private AudioSource footsteps;
+    // public AudioClip[] _clips;
+    // private float _footstepCooldown = 0;
+
+    //  private AudioSource footsteps;
 
     private void Awake()
     {
@@ -29,11 +38,13 @@ public class PlayerMovement : MonoBehaviour
         horizontalMove = Input.GetAxisRaw("Horizontal") * _moveSpeed;
         verticalMove = Input.GetAxisRaw("Vertical") * _moveSpeed;
 
+
         if ((verticalMove != 0 || horizontalMove != 0) && !IsJumping)
         {
             animator.SetBool("Walking", true);
-        } else { animator.SetBool("Walking", false); }
-                
+        }
+        else { animator.SetBool("Walking", false); }
+
 
         if (Input.GetButtonDown("Jump") && Time.timeScale > 0)
         {
@@ -41,14 +52,24 @@ public class PlayerMovement : MonoBehaviour
             jump = true;
             IsJumping = true;
         }
-        
 
+        if (Input.GetKeyDown("f"))
+        {
+            animator.SetTrigger("Attacks");
+            Invoke("Attack", attackDelay);
+            
+        }
 
         if (controller.IsGrounded() || controller.IsWalled())
         {
             animator.SetBool("IsGrounded", true);
+
+
         }
-        else { animator.SetBool("IsGrounded", false); }
+        else { animator.SetBool("IsGrounded", false);
+
+        }
+
 
 
         /*  if (horizontalMove != 0 && !IsJumping)
@@ -68,11 +89,11 @@ public class PlayerMovement : MonoBehaviour
               footsteps.Stop();
           }*/
 
-      /*  if (IsJumping)
-        {
-            animator.SetBool("IsGrounded", false);
-        } else { animator.SetBool("IsGrounded", true); }*/
-        
+        /*  if (IsJumping)
+          {
+              animator.SetBool("IsGrounded", false);
+          } else { animator.SetBool("IsGrounded", true); }*/
+
     }
 
     void FixedUpdate()
@@ -80,8 +101,21 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(horizontalMove * Time.fixedDeltaTime, jump);
         controller.VerticalMove(verticalMove * Time.fixedDeltaTime);
         jump = false;
+
+
     }
 
+    void Attack()
+    {
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+
+        foreach (Collider2D enemy in hitEnemies)
+        {
+            Debug.Log("Dead");
+            Destroy(enemy.gameObject);
+            //enemy.GetComponent<GameObject>().SetActive(false);
+        }
+    }
     public void OnLanding()
     {
 
