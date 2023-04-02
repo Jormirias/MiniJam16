@@ -284,10 +284,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 8126839921441750510, guid: fbc722e42c46124448e2c1aa5c59a6e6, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: fbc722e42c46124448e2c1aa5c59a6e6, type: 3}
@@ -420,6 +416,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hazardAnt: {fileID: 4818403158648523755, guid: 9036650506b661449ab8fbeb4eadd6c7, type: 3}
+  timerLimit: 1
 --- !u!1 &1615907258
 GameObject:
   m_ObjectHideFlags: 0

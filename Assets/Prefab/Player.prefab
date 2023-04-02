@@ -499,7 +499,7 @@ MonoBehaviour:
   enemyLayers:
     serializedVersion: 2
     m_Bits: 256
-  attackDelay: 0.2
+  attackDelay: 0.18
   playerSource: {fileID: 8126839920355629008}
   whip: {fileID: 8300000, guid: 4638bcb0f7cf6874bb14c622de26a9fb, type: 3}
   walk: {fileID: 8300000, guid: 1c183c26be10466468d0571304c25b6c, type: 3}

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
 {
-    public Transform target;
+    private Transform target;
     public Transform stinger;
     public GameObject bullet;
     public float fireRate;
@@ -15,7 +15,7 @@ public class EnemyBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        target = GameObject.FindWithTag("Player").transform;
     }
 
     // Update is called once per frame
