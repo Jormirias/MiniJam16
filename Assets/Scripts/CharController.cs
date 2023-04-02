@@ -16,7 +16,7 @@ public class CharController : MonoBehaviour
 
     private string currentGround = "ground";
     private float oGravity;
-    private float k_GroundedRadius = .2f;
+    private float k_GroundedRadius = .8f;
     private bool m_Grounded;
     private bool m_Walled;
     private Rigidbody2D m_Rigidbody;
@@ -56,7 +56,6 @@ public class CharController : MonoBehaviour
         {
             m_Rigidbody.transform.rotation = Quaternion.Euler(0,0,0);
             m_Rigidbody.gravityScale = oGravity;
-            currentGround = "ground";
         }
 
         if ((m_Rigidbody.constraints & RigidbodyConstraints2D.FreezePositionY) == RigidbodyConstraints2D.FreezePositionY)
@@ -81,7 +80,8 @@ public class CharController : MonoBehaviour
                       if (!wasGrounded && m_Rigidbody.velocity.y < -0.001f)
                       {
                           OnLandEvent.Invoke();
-                      }
+                        currentGround = "ground";
+                }
 
                       if(currentGround == "ceiling") {
                           m_Rigidbody.gravityScale = 0.0f;
@@ -99,9 +99,11 @@ public class CharController : MonoBehaviour
 
         Collider2D[] colliders_wall = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsWall);
 
+        Debug.Log(colliders_wall.Length);
+
         for (int i = 0; i < colliders_wall.Length; i++)
         {
-
+            
             if (colliders_wall[i].gameObject != gameObject)
             {
                 m_Walled = true;
@@ -190,6 +192,8 @@ public class CharController : MonoBehaviour
             if (m_Grounded && jump)
             {
                 m_Grounded = false;
+
+                currentGround = "ground";
 
                 m_Rigidbody.gravityScale = oGravity;
                 m_Rigidbody.constraints = RigidbodyConstraints2D.None;

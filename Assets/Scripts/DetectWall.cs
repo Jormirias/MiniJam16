@@ -17,7 +17,7 @@ public class DetectWall : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(m_CornerCheck.position, 0.2f, m_WhatIsWall);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(m_CornerCheck.position, 0.1f, m_WhatIsWall);
 
         for (int i = 0; i < colliders.Length; i++)
         {
@@ -55,7 +55,6 @@ public class DetectWall : MonoBehaviour
         {
             CharControl.ChangeGroundSide("right");
             transform.position = transform.position + new Vector3(0, 1, 0);
-            Debug.Log(groundSide);
         }
          else if (groundSide == "ground" && !flipDirection)
         {

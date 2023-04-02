@@ -101,8 +101,6 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(horizontalMove * Time.fixedDeltaTime, jump);
         controller.VerticalMove(verticalMove * Time.fixedDeltaTime);
         jump = false;
-
-
     }
 
     void Attack()
