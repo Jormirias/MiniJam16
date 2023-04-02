@@ -13,6 +13,15 @@ public class PlayerMovement : MonoBehaviour
     bool jump = false;
     bool IsJumping = false;
 
+    [SerializeField]
+    private Transform attackPoint;
+    [SerializeField]
+    private float attackRange = 0.005f;
+    [SerializeField]
+    private LayerMask enemyLayers;
+    [SerializeField]
+    private float attackDelay;
+
     // public AudioClip[] _clips;
     // private float _footstepCooldown = 0;
 
@@ -44,21 +53,21 @@ public class PlayerMovement : MonoBehaviour
             IsJumping = true;
         }
 
-
+        if (Input.GetKeyDown("f"))
+        {
+            animator.SetTrigger("Attacks");
+            Invoke("Attack", attackDelay);
+            
+        }
 
         if (controller.IsGrounded() || controller.IsWalled())
         {
             animator.SetBool("IsGrounded", true);
-            if (Input.GetButtonDown("Fire1"))
-            {
-                animator.SetTrigger("Attacks");
-            }
+
+
         }
         else { animator.SetBool("IsGrounded", false);
-            if (Input.GetButtonDown("Fire1"))
-            {
-                animator.SetTrigger("Attacks");
-            }
+
         }
 
 
@@ -96,6 +105,17 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    void Attack()
+    {
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+
+        foreach (Collider2D enemy in hitEnemies)
+        {
+            Debug.Log("Dead");
+            Destroy(enemy.gameObject);
+            //enemy.GetComponent<GameObject>().SetActive(false);
+        }
+    }
     public void OnLanding()
     {
 
