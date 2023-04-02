@@ -8,8 +8,7 @@ public class HazardGen : MonoBehaviour
 
     private float timer = 0;
     private float timerLimit = 1;
-    private float timerDelta = 0.01f;
-    private float mass = 1;
+    private float timerDelta = 0.000000000000000000001f;
     private bool enableStart = false;
 
     void Start()
@@ -24,7 +23,7 @@ public class HazardGen : MonoBehaviour
         {
             timer = 0;
             timerLimit -= timerDelta;
-            createSword();
+            createAnt();
 
             if (timerLimit > 0.1f)
             {
@@ -33,13 +32,12 @@ public class HazardGen : MonoBehaviour
 
             if (timerLimit < 0.9f)
             {
-                createSword();
-                mass += 0.1f;
+                createAnt();
             }
 
             if (timerLimit < 0.8f)
             {
-                createSword();
+                createAnt();
             }
         }
     }
@@ -49,9 +47,9 @@ public class HazardGen : MonoBehaviour
         enableStart = true;
     }
 
-    public void createSword()
+    public void createAnt()
     {
-        float x = Random.Range(-6.5f, 6.5f);
-        //hazardAnt sword = new hazardAnt(new Vector3(x, 5, 0), hazardAnt, gameObject, mass);
+        float x = Random.Range(-15f, 15f);
+        Instantiate(hazardAnt, new Vector3(x, 5, 0), Quaternion.identity);
     }
 }
