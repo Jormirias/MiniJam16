@@ -22,6 +22,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float attackDelay;
 
+    [SerializeField]
+    private AudioSource playerSource;
+    [SerializeField]
+    private AudioClip whip;
+    [SerializeField]
+    private AudioClip walk;
+
     // public AudioClip[] _clips;
     // private float _footstepCooldown = 0;
 
@@ -42,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
         if ((verticalMove != 0 || horizontalMove != 0) && !IsJumping)
         {
             animator.SetBool("Walking", true);
+
         }
         else { animator.SetBool("Walking", false); }
 
@@ -49,13 +57,18 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump") && Time.timeScale > 0)
         {
             animator.SetTrigger("Jumps");
+            playerSource.clip = walk;
+            playerSource.Play();
             jump = true;
             IsJumping = true;
         }
 
         if (Input.GetKeyDown("f"))
         {
+            playerSource.clip = whip;
+            playerSource.Play();
             animator.SetTrigger("Attacks");
+
             Invoke("Attack", attackDelay);
             
         }
