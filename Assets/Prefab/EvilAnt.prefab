@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4303717574350930064
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5987519879897792943}
+  m_Layer: 8
+  m_Name: stinger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5987519879897792943
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4303717574350930064}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.32, y: 0.06, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4818403158648523764}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4818403158648523755
 GameObject:
   m_ObjectHideFlags: 0
@@ -12,7 +43,8 @@ GameObject:
   - component: {fileID: 4818403158648523765}
   - component: {fileID: 4818403158648523754}
   - component: {fileID: 4818403158648523767}
-  - component: {fileID: 8675914070828575896}
+  - component: {fileID: 3567763623619737304}
+  - component: {fileID: 4469384521222095078}
   m_Layer: 8
   m_Name: EvilAnt
   m_TagString: Untagged
@@ -31,9 +63,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5987519879897792943}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4818403158648523765
 SpriteRenderer:
@@ -123,7 +156,25 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!50 &8675914070828575896
+--- !u!114 &3567763623619737304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4818403158648523755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbbc90956ccf80440bea00790785abc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 8126839921441750498, guid: fbc722e42c46124448e2c1aa5c59a6e6, type: 3}
+  stinger: {fileID: 5987519879897792943}
+  bullet: {fileID: 5589947281571591785, guid: ebb535a1d5e96f949b217a065ca4431b, type: 3}
+  fireRate: 8000
+  shootingPower: 10
+  animator: {fileID: 4818403158648523767}
+--- !u!50 &4469384521222095078
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
