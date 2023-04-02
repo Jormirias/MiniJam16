@@ -44,26 +44,40 @@ public class DetectWall : MonoBehaviour
 
     void makeGroundCorner()
     {
-        transform.position = transform.position + new Vector3(0, 1, 0);
         bool flipDirection = CharControl.CheckFlipSide();
         int flipMultiplier = 1;
-
+        
         if (!flipDirection)
             { flipMultiplier *= -1; }
 
         string groundSide = CharControl.CheckGroundSide();
         if (groundSide == "ground" && flipDirection)
+        {
             CharControl.ChangeGroundSide("right");
+            transform.position = transform.position + new Vector3(0, 1, 0);
+            Debug.Log(groundSide);
+        }
          else if (groundSide == "ground" && !flipDirection)
+        {
+            transform.position = transform.position + new Vector3(0, 1, 0);
             CharControl.ChangeGroundSide("left");
-
+        }
+        else if (groundSide == "ceiling" && !flipDirection)
+        {
+            transform.position = transform.position + new Vector3(0, -1, 0);
+            CharControl.ChangeGroundSide("right");
+        }
+        else if (groundSide == "ceiling" && flipDirection)
+        {
+            transform.position = transform.position + new Vector3(0, -1, 0);
+            CharControl.ChangeGroundSide("left");
+        }
 
         transform.Rotate(0.0f, 0.0f, 90.0f * flipMultiplier, Space.World);
     }
 
     void makeWallCorner()
     {
-        transform.position = transform.position + new Vector3(0, 1, 0);
         bool flipDirection = CharControl.CheckFlipSide();
         int flipMultiplier = 1;
 
@@ -72,14 +86,25 @@ public class DetectWall : MonoBehaviour
 
         string groundSide = CharControl.CheckGroundSide();
         if (groundSide == "right" && flipDirection)
+        {
             CharControl.ChangeGroundSide("ceiling");
+            transform.position = transform.position + new Vector3(-1, 0, 0);
+        }
         else if (groundSide == "right" && !flipDirection)
+        { 
             CharControl.ChangeGroundSide("ground");
+            transform.position = transform.position + new Vector3(-1, 0, 0);
+        }
         else if (groundSide == "left" && flipDirection)
+        { 
             CharControl.ChangeGroundSide("ground");
+            transform.position = transform.position + new Vector3(1, 0, 0);
+        }
         else if (groundSide == "left" && !flipDirection)
+        { 
             CharControl.ChangeGroundSide("ceiling");
-
+            transform.position = transform.position + new Vector3(1, 0, 0);
+        }
 
         transform.Rotate(0.0f, 0.0f, 90.0f * flipMultiplier, Space.World);
     }

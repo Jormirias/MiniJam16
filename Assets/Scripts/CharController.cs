@@ -16,7 +16,7 @@ public class CharController : MonoBehaviour
 
     private string currentGround = "ground";
     private float oGravity;
-    private float k_GroundedRadius = .3f;
+    private float k_GroundedRadius = .2f;
     private bool m_Grounded;
     private bool m_Walled;
     private Rigidbody2D m_Rigidbody;
@@ -50,12 +50,25 @@ public class CharController : MonoBehaviour
     }
 
     private void FixedUpdate()
-    {     
+    {
+
+        if (!m_Grounded && !m_Walled)
+        {
+            m_Rigidbody.transform.rotation = Quaternion.Euler(0,0,0);
+            m_Rigidbody.gravityScale = oGravity;
+            currentGround = "ground";
+        }
+
+        if ((m_Rigidbody.constraints & RigidbodyConstraints2D.FreezePositionY) == RigidbodyConstraints2D.FreezePositionY)
+        {
+            m_Rigidbody.constraints = RigidbodyConstraints2D.None;
+            m_Rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+        };
+
         bool wasGrounded = m_Grounded;
         m_Grounded = false;
 
         m_Walled = false;
-        m_Rigidbody.gravityScale = oGravity;
 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
 
@@ -69,7 +82,19 @@ public class CharController : MonoBehaviour
                       {
                           OnLandEvent.Invoke();
                       }
+
+                      if(currentGround == "ceiling") {
+                          m_Rigidbody.gravityScale = 0.0f;
+                          m_Rigidbody.constraints = RigidbodyConstraints2D.FreezePositionY;
+                      }
+                     
                   }
+
+                  else
+            {
+
+            }
+
               }
 
         Collider2D[] colliders_wall = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsWall);
@@ -136,19 +161,28 @@ public class CharController : MonoBehaviour
 
     public void Move(float move, bool jump)
     {
-        Debug.Log(jump);
         if (m_Grounded || m_AirControl)
         {            
             Vector3 targetVelocity = new Vector3(move * 10f, m_Rigidbody.velocity.y, 0);
 
             m_Rigidbody.velocity = Vector3.SmoothDamp(m_Rigidbody.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
 
-            if (move > 0 && !m_FacingRight)
+            if (move > 0 && !m_FacingRight && currentGround != "ceiling")
             {
                 Flip();
             }
 
-            else if (move < 0 && m_FacingRight)
+            else if (move < 0 && m_FacingRight && currentGround != "ceiling")
+            {
+                Flip();
+            }
+
+            else if (move > 0 && m_FacingRight && currentGround == "ceiling")
+            {
+                Flip();
+            }
+
+            else if (move < 0 && !m_FacingRight && currentGround == "ceiling")
             {
                 Flip();
             }
@@ -156,7 +190,15 @@ public class CharController : MonoBehaviour
             if (m_Grounded && jump)
             {
                 m_Grounded = false;
-                m_Rigidbody.AddForce(new Vector2(0f, m_JumpForce));
+
+                m_Rigidbody.gravityScale = oGravity;
+                m_Rigidbody.constraints = RigidbodyConstraints2D.None;
+                m_Rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+                if (currentGround == "ceiling")
+                { m_Rigidbody.AddForce(new Vector2(0f, -m_JumpForce)); }
+                else
+                { m_Rigidbody.AddForce(new Vector2(0f, m_JumpForce));}
             }
 
         }
@@ -173,7 +215,6 @@ public class CharController : MonoBehaviour
 
         if (currentGround == "left" && ((move < 0 && !m_FacingRight) || (move > 0 && m_FacingRight)))
         {
-            Debug.Log(currentGround);
             Flip();
         }
 

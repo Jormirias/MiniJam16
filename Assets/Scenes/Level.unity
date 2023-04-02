@@ -206,7 +206,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 277976942}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.99, z: 0}
+  m_LocalPosition: {x: 0, y: -0.85, z: 0}
   m_LocalScale: {x: 0.3, y: 0.28, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5116,7 +5116,7 @@ TilemapCollider2D:
   m_GameObject: {fileID: 1615907258}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: d4eef71e0f9ed9f40a17be71570a18fb, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -5315,7 +5315,7 @@ Rigidbody2D:
   m_Material: {fileID: 6200000, guid: 9a0371f8194bc4a4bb8862f7ef013d0f, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!4 &1787419513
 Transform:
@@ -5431,7 +5431,7 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 1787419509}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 9a0371f8194bc4a4bb8862f7ef013d0f, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -6132,7 +6132,7 @@ TilemapCollider2D:
   m_GameObject: {fileID: 2131971037}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: d4eef71e0f9ed9f40a17be71570a18fb, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
