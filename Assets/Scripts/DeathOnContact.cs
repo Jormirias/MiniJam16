@@ -13,7 +13,9 @@ public class DeathOnContact : MonoBehaviour
         {
             Debug.Log("dead");
             Destroy(gameObject);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+           // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            int index = Random.Range(1, 5);
+            SceneManager.LoadScene(index);
         }
         else if (!other.gameObject.CompareTag("Enemy")) { Destroy(gameObject); }
     }
@@ -24,7 +26,9 @@ public class DeathOnContact : MonoBehaviour
         {
             Debug.Log("dead");
             Destroy(gameObject);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            int index = Random.Range(1, 5);
+            SceneManager.LoadScene(index);
         }
         else if (!other.gameObject.CompareTag("Enemy")){ Destroy(gameObject);}
     }

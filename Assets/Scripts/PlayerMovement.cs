@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float _moveSpeed = 2f;
     public CharController controller;
     public Animator animator;
+    public bool canAttack;
 
     float horizontalMove = 0f;
     float verticalMove = 0f;
@@ -29,11 +31,17 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private AudioClip walk;
 
+
     // public AudioClip[] _clips;
     // private float _footstepCooldown = 0;
 
     //  private AudioSource footsteps;
 
+
+    void Start()
+    {
+        canAttack = true;
+    }
     private void Awake()
     {
         //footsteps = GetComponent<AudioSource>();
@@ -63,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
             IsJumping = true;
         }
 
-        if (Input.GetKeyDown("f"))
+        if (Input.GetKeyDown("l") && canAttack == true)
         {
             playerSource.clip = whip;
             playerSource.Play();
@@ -127,6 +135,8 @@ public class PlayerMovement : MonoBehaviour
             //enemy.GetComponent<GameObject>().SetActive(false);
         }
     }
+
+
     public void OnLanding()
     {
 
